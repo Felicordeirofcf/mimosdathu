@@ -7,8 +7,12 @@ const About: React.FC = () => {
         <h2 className="text-3xl font-playfair font-bold text-marrom-dourado text-center mb-8">Sobre Nós</h2>
         {/* Conteúdo institucional aqui */}
         <p className="text-center text-preto-suave font-montserrat">
-          Aqui você encontrará informações sobre a Mimos da Thu, nossa história, missão e valores.
-          (Texto placeholder - substituir pelo conteúdo real)
+          👩‍❤️‍👩 Quem Somos
+Desde 2016, duas irmãs uniram sua paixão pela criatividade e pelo cuidado artesanal para dar vida à Mimos da Thu — uma marca dedicada a transformar gestos de carinho em presentes únicos.
+
+Ao longo dos anos, nos especializamos na criação de brindes personalizados e caixas cartonadas sob medida, sempre com atenção especial aos detalhes, acabamentos delicados e experiências que emocionam. Cada mimo é pensado com amor, feito à mão e criado para surpreender em datas especiais, eventos corporativos ou momentos que merecem ser celebrados.
+
+Mais do que entregar produtos, entregamos sentimentos embalados com afeto.
         </p>
       </div>
     </section>
