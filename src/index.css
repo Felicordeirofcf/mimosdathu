@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Style for the active navigation link */
+.active-link {
+  @apply border-marrom-dourado text-marrom-dourado; /* Apply Tailwind classes for active state */
+  /* Or define custom styles if needed */
+  /* color: #9F7E4B; */
+  /* border-bottom-width: 2px; */
+  /* border-color: #9F7E4B; */
+}
+
+/* Ensure smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Header scrolled state - already handled by inline classes, but could add global styles if needed */
+/* .header-scrolled { ... } */
+
