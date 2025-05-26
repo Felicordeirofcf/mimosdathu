@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as ScrollLink } from 'react-scroll'; // Import react-scroll Link
 // Using the same product images for the carousel as requested
 import productCaixaLuxo from '../assets/images/produtos/produto_caixa_luxo.jpg';
 import productBrindeEmpresarial from '../assets/images/produtos/produto_brinde_empresarial.jpg';
@@ -29,36 +30,50 @@ const Hero: React.FC = () => {
       <img 
         src={carouselImages[currentIndex].src} 
         alt={carouselImages[currentIndex].alt} 
-        className="absolute inset-0 w-full h-full object-cover opacity-80" // Added opacity for potential text overlay
+        className="absolute inset-0 w-full h-full object-cover opacity-70" // Adjusted opacity
       />
       
-      {/* Optional: Add text overlay or CTA button here */}
-      {/* <div className="relative z-10 text-center p-8 bg-black bg-opacity-50 rounded">
-        <h1 className="text-4xl font-bold text-white font-playfair mb-4">Mimos da Thu</h1>
-        <p className="text-xl text-white font-montserrat">Presentes que encantam</p>
-      </div> */}
+      {/* Text Overlay and CTA Button - Based on new reference */}
+      <div className="relative z-10 text-center p-8 max-w-lg mx-auto">
+        <h1 className="text-4xl md:text-5xl font-playfair font-semibold text-marrom-dourado mb-6 leading-tight">
+          Presentes que encantam,<br/> momentos que ficam
+        </h1>
+        <ScrollLink
+          to="produtos" // ID of the products section
+          spy={true}
+          smooth={true}
+          offset={-70} // Adjust offset based on header height
+          duration={500}
+          className="inline-block bg-rosa-medio hover:bg-marrom-dourado text-white font-montserrat font-medium py-2 px-6 rounded-md text-sm transition-colors duration-300 cursor-pointer"
+        >
+          VER PRODUTOS
+        </ScrollLink>
+      </div>
 
       {/* Basic Carousel Controls (Placeholder) */}
       <button 
         onClick={prevSlide} 
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-preto-suave p-2 rounded-full z-10"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-preto-suave p-2 rounded-full z-10 transition-opacity duration-300"
+        aria-label="Slide anterior"
       >
         &#10094; {/* Left Arrow */}
       </button>
       <button 
         onClick={nextSlide} 
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-preto-suave p-2 rounded-full z-10"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-preto-suave p-2 rounded-full z-10 transition-opacity duration-300"
+        aria-label="Próximo slide"
       >
         &#10095; {/* Right Arrow */}
       </button>
 
-      {/* Dots Indicator (Placeholder) */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      {/* Dots Indicator (Placeholder) - Styled like reference */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
         {carouselImages.map((_, index) => (
           <button 
             key={index} 
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-rosa-medio' : 'bg-white bg-opacity-50'}`}
+            className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${currentIndex === index ? 'bg-rosa-medio' : 'bg-white bg-opacity-70 hover:bg-opacity-90'}`}
+            aria-label={`Ir para slide ${index + 1}`}
           />
         ))}
       </div>
