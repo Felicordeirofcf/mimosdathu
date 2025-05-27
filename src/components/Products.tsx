@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link
 import productCaixaLuxo from '../assets/images/produtos/produto_caixa_luxo.jpg';
 import productBrindeEmpresarial from '../assets/images/produtos/produto_brinde_empresarial.jpg';
 
@@ -29,6 +30,14 @@ const productsData: Product[] = [
     price: "R$ 95,00",
     description: "Kit corporativo com itens selecionados em caixa personalizada com a sua marca.",
     link: "#" // Replace with actual product link
+  },
+  {
+    id: 3,
+    image: '/placeholder_produto_3.jpg', // TODO: Adicionar imagem real em src/assets/images/produtos/ e atualizar caminho
+    title: "Novo Produto Exemplo",
+    price: "R$ 00,00", // TODO: Atualizar preço
+    description: "Descrição do novo produto exemplo.", // TODO: Atualizar descrição
+    link: "#" // TODO: Atualizar link do produto
   },
   // Add more products here if needed, following the same structure
   // {
@@ -76,6 +85,15 @@ const Products: React.FC = () => {
               </div>
             </div>
           ))}
+          {/* Card "Ver Mais Produtos" */}
+          <Link 
+            to="/loja" // Use Link component for client-side routing
+            className="bg-white rounded-lg shadow-md overflow-hidden w-full max-w-sm flex flex-col items-center justify-center p-8 text-center transform hover:scale-105 transition-transform duration-300 border-2 border-dashed border-rosa-medio hover:border-marrom-dourado"
+          >
+            <h3 className="text-lg font-playfair font-semibold text-preto-suave mb-2">Ver Mais Produtos</h3>
+            <p className="text-preto-suave font-montserrat text-sm mb-4">Explore nossa coleção completa de brindes e personalizados.</p>
+            <span className="text-rosa-medio hover:text-marrom-dourado font-bold">→</span>
+          </Link>
         </div>
       </div>
     </section>
