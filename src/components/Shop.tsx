@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header.tsx';
 import Footer from './Footer.tsx';
+import ProductModal from './ProductModal.tsx'; // Import the modal component
 
 // Interface for product data (can be moved to a separate file later)
 interface Product {
@@ -29,10 +30,22 @@ const categories = ['Todos', ...Array.from(new Set(allProductsData.map(p => p.ca
 
 const Shop: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProducts = selectedCategory === 'Todos'
     ? allProductsData
     : allProductsData.filter(product => product.category === selectedCategory);
+
+  const openModal = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -54,10 +67,8 @@ const Shop: React.FC = () => {
                   </button>
                 </li>
               ))}
-              {/* Add more categories dynamically or manually here */}
             </ul>
           </div>
-          {/* Add other filter types here if needed (e.g., price range) */}
         </aside>
 
         {/* Product Grid */}
@@ -68,19 +79,15 @@ const Shop: React.FC = () => {
               {filteredProducts.map((product) => (
                 <div 
                   key={product.id} 
-                  className="bg-white rounded-lg shadow-md overflow-hidden w-full flex flex-col transform hover:scale-105 transition-transform duration-300"
+                  className="bg-white rounded-lg shadow-md overflow-hidden w-full flex flex-col transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => openModal(product)} // Open modal on card click
                 >
                   <img src={product.image} alt={product.title} className="w-full h-48 object-cover"/>
                   <div className="p-4 flex flex-col flex-grow">
                     <h3 className="text-lg font-playfair font-semibold text-preto-suave mb-1">{product.title}</h3>
                     <p className="text-rosa-medio font-semibold text-md mb-2">{product.price}</p>
                     <p className="text-preto-suave font-montserrat text-sm mb-4 flex-grow">{product.description}</p>
-                    <a 
-                      href={product.link || '#'}
-                      className="mt-auto block text-center bg-rosa-medio hover:bg-marrom-dourado text-white font-montserrat font-medium py-2 px-4 rounded-md text-sm transition-colors duration-300"
-                    >
-                      VER DETALHES
-                    </a>
+                    {/* Removed the explicit 'VER DETALHES' button */}
                   </div>
                 </div>
               ))}
@@ -88,10 +95,11 @@ const Shop: React.FC = () => {
           ) : (
             <p className="text-center text-preto-suave font-montserrat">Nenhum produto encontrado para a categoria selecionada.</p>
           )}
-          {/* TODO: Add pagination controls if filteredProducts.length is large */}
         </div>
       </main>
       <Footer />
+      {/* Render Modal */}
+      {isModalOpen && <ProductModal product={selectedProduct} onClose={closeModal} />}
     </div>
   );
 };
