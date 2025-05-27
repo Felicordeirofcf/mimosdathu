@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink, useLocation } from 'react-router-dom'; // Import RouterLink and useLocation
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/images/logo-mimos-da-thu.jpg'; // Import the logo
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation(); // Get current location
+  const isShopPage = location.pathname === '/loja'; // Check if it's the shop page
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -25,28 +28,85 @@ const Header: React.FC = () => {
     'Contato': 'contato'
   };
 
+  // Function to render navigation links conditionally
+  const renderNavLink = (item: string, isMobile: boolean = false) => {
+    const targetId = navLinks[item as keyof typeof navLinks];
+    const commonClasses = isMobile 
+      ? "block py-2 text-preto-suave hover:text-marrom-dourado transition-colors duration-300 text-lg"
+      : "text-preto-suave hover:text-marrom-dourado pb-1 border-b-2 border-transparent hover:border-marrom-dourado transition-all duration-300 cursor-pointer";
+    const activeClass = isMobile ? "text-marrom-dourado font-semibold" : "active-link-desktop"; // Define active class for desktop in CSS/Tailwind
+
+    if (isShopPage) {
+      // On /loja page, link back to landing page sections
+      const linkTarget = targetId === 'inicio' ? '/' : `/#${targetId}`;
+      return (
+        <RouterLink
+          to={linkTarget}
+          className={commonClasses}
+          onClick={isMobile ? closeMobileMenu : undefined}
+        >
+          {item}
+        </RouterLink>
+      );
+    } else {
+      // On landing page, use smooth scroll
+      return (
+        <ScrollLink
+          activeClass={activeClass}
+          to={targetId}
+          spy={true}
+          smooth={true}
+          offset={-70} // Adjust offset
+          duration={500}
+          className={commonClasses}
+          onClick={isMobile ? closeMobileMenu : undefined}
+        >
+          {item}
+        </ScrollLink>
+      );
+    }
+  };
+
+  // Function to render the logo link conditionally
+  const renderLogoLink = () => {
+    if (isShopPage) {
+      return (
+        <RouterLink to="/" className="cursor-pointer">
+          <img 
+            src={logo} 
+            alt="Mimos da Thu Logo"
+            className="h-14 md:h-16" // Adjust height as needed
+          />
+        </RouterLink>
+      );
+    } else {
+      return (
+        <ScrollLink
+          to="inicio" // Link to the top section
+          spy={true}
+          smooth={true}
+          offset={-70} // Adjust offset based on final header height
+          duration={500}
+          className="cursor-pointer"
+        >
+          <img 
+            src={logo} 
+            alt="Mimos da Thu Logo"
+            className="h-14 md:h-16" // Adjust height as needed
+          />
+        </ScrollLink>
+      );
+    }
+  };
+
   return (
     <header 
-      // Style based on reference: white background, top border, shadow
       className="fixed top-0 left-0 w-full z-50 bg-white shadow-md border-t-4 border-rosa-medio"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
         {/* Logo */}
         <div className="logo flex-shrink-0">
-          <Link
-            to="inicio" // Link to the top section
-            spy={true}
-            smooth={true}
-            offset={-70} // Adjust offset based on final header height
-            duration={500}
-            className="cursor-pointer"
-          >
-            <img 
-              src={logo} 
-              alt="Mimos da Thu Logo"
-              className="h-14 md:h-16" // Adjust height as needed
-            />
-          </Link>
+          {renderLogoLink()}
         </div>
 
         {/* Desktop Navigation - Centered */}
@@ -54,17 +114,7 @@ const Header: React.FC = () => {
           <ul className="flex space-x-6 lg:space-x-8 font-montserrat text-sm">
             {navItems.map((item) => (
               <li key={item}>
-                <Link
-                  activeClass="active-link-desktop" // Style this class in CSS/Tailwind
-                  to={navLinks[item as keyof typeof navLinks]} // Use mapped ID
-                  spy={true}
-                  smooth={true}
-                  offset={-70} // Adjust offset
-                  duration={500}
-                  className="text-preto-suave hover:text-marrom-dourado pb-1 border-b-2 border-transparent hover:border-marrom-dourado transition-all duration-300 cursor-pointer"
-                >
-                  {item}
-                </Link>
+                {renderNavLink(item, false)}
               </li>
             ))}
           </ul>
@@ -78,19 +128,8 @@ const Header: React.FC = () => {
             className="hidden md:flex items-center bg-transparent border border-preto-suave text-preto-suave hover:bg-bege-claro hover:border-marrom-dourado hover:text-marrom-dourado text-xs font-medium font-montserrat px-3 py-1.5 rounded-md transition-colors duration-300"
           >
             <FaUser className="mr-1.5" size={14}/>
-            Minha Conta {/* Text changed from reference */}
+            Minha Conta
           </a>
-          
-          {/* Cart Icon - Placeholder Link - Keep for now */}
-          {/* <a 
-            href="#" // Replace with actual cart link/modal trigger
-            className="relative text-preto-suave hover:text-marrom-dourado transition-colors duration-300"
-          >
-            <FaShoppingCart size={20} />
-            <span className="absolute -top-2 -right-2 bg-rosa-medio text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center text-[10px]">
-              0
-            </span>
-          </a> */} 
           
           {/* Mobile Menu Button */}
           <button
@@ -122,18 +161,7 @@ const Header: React.FC = () => {
             <ul className="space-y-4 font-montserrat">
               {navItems.map((item) => (
                 <li key={item}>
-                  <Link
-                    activeClass="text-marrom-dourado font-semibold" // Active style for mobile
-                    to={navLinks[item as keyof typeof navLinks]} // Use mapped ID
-                    spy={true}
-                    smooth={true}
-                    offset={-70} // Adjust offset
-                    duration={500}
-                    onClick={closeMobileMenu} // Close menu on click
-                    className="block py-2 text-preto-suave hover:text-marrom-dourado transition-colors duration-300 text-lg"
-                  >
-                    {item}
-                  </Link>
+                  {renderNavLink(item, true)}
                 </li>
               ))}
               {/* Mobile Account Link */}
@@ -146,16 +174,6 @@ const Header: React.FC = () => {
                   <FaUser className="mr-2" /> Minha Conta
                 </a>
               </li>
-              {/* Mobile Cart Link - Optional */}
-              {/* <li>
-                <a
-                  href="#" // Replace with actual cart link
-                  className="flex items-center py-2 text-preto-suave hover:text-marrom-dourado transition-colors duration-300 text-lg"
-                  onClick={closeMobileMenu}
-                >
-                  <FaShoppingCart className="mr-2" /> Carrinho (0)
-                </a>
-              </li> */}              
             </ul>
           </nav>
         </div>
