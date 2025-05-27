@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9dde7463.css",
+    "main.js": "/static/js/main.128dd723.js",
+    "static/js/453.6c08fbc1.chunk.js": "/static/js/453.6c08fbc1.chunk.js",
+    "static/media/produto_caixa_luxo.jpg": "/static/media/produto_caixa_luxo.6d2d136f9417ca451c7a.jpg",
+    "static/media/produto_brinde_empresarial.jpg": "/static/media/produto_brinde_empresarial.7ff827a0dfebca161d86.jpg",
+    "static/media/logo-mimos-da-thu.jpg": "/static/media/logo-mimos-da-thu.23cc03426bd7ed462f20.jpg",
+    "index.html": "/index.html",
+    "main.9dde7463.css.map": "/static/css/main.9dde7463.css.map",
+    "main.128dd723.js.map": "/static/js/main.128dd723.js.map",
+    "453.6c08fbc1.chunk.js.map": "/static/js/453.6c08fbc1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9dde7463.css",
+    "static/js/main.128dd723.js"
+  ]
+}

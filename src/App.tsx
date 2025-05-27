@@ -5,14 +5,14 @@ import {
   Route,
 } from "react-router-dom";
 
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Categories from './components/Categories';
-import Products from './components/Products';
-import About from './components/About';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Shop from './components/Shop'; // Import the new Shop component
+import Header from './components/Header.tsx'; // Added .tsx
+import Hero from './components/Hero.tsx'; // Added .tsx
+import Categories from './components/Categories.tsx'; // Added .tsx
+import Products from './components/Products.tsx'; // Added .tsx
+import About from './components/About.tsx'; // Added .tsx
+import Contact from './components/Contact.tsx'; // Added .tsx
+import Footer from './components/Footer.tsx'; // Added .tsx
+import Shop from './components/Shop.tsx'; // Import the new Shop component with .tsx
 import './index.css';
 
 // Component for the Home Page content

@@ -14,4 +14,4 @@
 - [X] Implementar lógica de filtragem de produtos
 - [X] Validar funcionalidades e responsividade
 - [X] Empacotar arquivos do projeto
-- [ ] Enviar arquivos e relatório final ao usuário
+- [X] Enviar arquivos e relatório final ao usuário

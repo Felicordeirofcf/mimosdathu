@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Header.tsx';
+import Footer from './Footer.tsx';
 
 // Interface for product data (can be moved to a separate file later)
 interface Product {
